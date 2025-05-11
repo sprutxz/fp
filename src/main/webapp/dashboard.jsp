@@ -55,6 +55,17 @@
         .logout-button:hover {
             background-color: #d32f2f;
         }
+        .button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
         .content {
             padding: 20px 0;
         }
@@ -73,6 +84,7 @@
             <h2>Your Dashboard Content</h2>
             <p>This is a secure area only accessible to logged-in users.</p>
             <p>You have successfully authenticated with the system.</p>
+            <a href="flightSearch.jsp" class="button">Search Flights</a>
         </div>
     </div>
 </body>

@@ -14,7 +14,7 @@ CREATE TABLE User (
 
 CREATE TABLE Customer (
     user_id VARCHAR(20),
-    account_no VARCHAR(20),
+    account_no VARCHAR(20), 
     PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
@@ -118,15 +118,3 @@ CREATE TABLE Travel (
     FOREIGN KEY (airline_id) REFERENCES Airline(airline_id),
     FOREIGN KEY (seat_no, aircraft_id) REFERENCES Seat(seat_no, aircraft_id)
 );
-
--- Insert sample data for testing
--- Sample users
-INSERT INTO User (user_id, first_name, last_name, password) VALUES 
-('admin01', 'Admin', 'User', 'admin123'),
-('user01', 'Regular', 'User', 'password123'),
-('john01', 'John', 'Doe', 'john123');
-
--- Assign roles to users
-INSERT INTO Admin (user_id) VALUES ('admin01');
-INSERT INTO Customer (user_id, account_no) VALUES ('user01', 'ACC123456');
-INSERT INTO Customer (user_id, account_no) VALUES ('john01', 'ACC789012');
