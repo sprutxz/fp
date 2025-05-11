@@ -26,18 +26,12 @@
             for (int i = -3; i <= 3; i++) {
                 Date searchDate = Date.valueOf(localDepDate.plusDays(i));
                 List<Flight> flights = dao.searchFlights(depAirport, arrAirport, searchDate);
-                for (Flight f : flights) {
-                    f.setTravelDate(searchDate);
-                    outboundFlights.add(f);
-                }
+                outboundFlights.addAll(flights);
             }
         } else {
             Date searchDate = Date.valueOf(localDepDate);
             List<Flight> flights = dao.searchFlights(depAirport, arrAirport, searchDate);
-            for (Flight f : flights) {
-                f.setTravelDate(searchDate);
-                outboundFlights.add(f);
-            }
+            outboundFlights.addAll(flights);
         }
         if ("roundtrip".equals(tripType) && returnDateStr != null && !returnDateStr.isEmpty()) {
             LocalDate localReturnDate = LocalDate.parse(returnDateStr);
@@ -45,18 +39,12 @@
                 for (int i = -3; i <= 3; i++) {
                     Date searchDate = Date.valueOf(localReturnDate.plusDays(i));
                     List<Flight> flights = dao.searchFlights(arrAirport, depAirport, searchDate);
-                    for (Flight f : flights) {
-                        f.setTravelDate(searchDate);
-                        returnFlights.add(f);
-                    }
+                    returnFlights.addAll(flights);
                 }
             } else {
                 Date searchDate = Date.valueOf(localReturnDate);
                 List<Flight> flights = dao.searchFlights(arrAirport, depAirport, searchDate);
-                for (Flight f : flights) {
-                    f.setTravelDate(searchDate);
-                    returnFlights.add(f);
-                }
+                returnFlights.addAll(flights);
             }
         }
     } catch (Exception e) {
@@ -67,7 +55,7 @@
     String sortBy = request.getParameter("sortBy");
     String minFareStr = request.getParameter("minFare");
     String maxFareStr = request.getParameter("maxFare");
-    String airlineFilter = request.getParameter("airlineFilter");
+    String airlineNameFilter = request.getParameter("airlineNameFilter");
     String minDepTimeStr = request.getParameter("minDepTime");
     String maxDepTimeStr = request.getParameter("maxDepTime");
     String minArrTimeStr = request.getParameter("minArrTime");
@@ -80,8 +68,8 @@
     Time minArrTime = (minArrTimeStr != null && !minArrTimeStr.isEmpty()) ? Time.valueOf(minArrTimeStr + ":00") : null;
     Time maxArrTime = (maxArrTimeStr != null && !maxArrTimeStr.isEmpty()) ? Time.valueOf(maxArrTimeStr + ":00") : null;
 
-    outboundFlights = FlightUtils.filterFlights(outboundFlights, minFare, maxFare, airlineFilter, minDepTime, maxDepTime, minArrTime, maxArrTime);
-    returnFlights = FlightUtils.filterFlights(returnFlights, minFare, maxFare, airlineFilter, minDepTime, maxDepTime, minArrTime, maxArrTime);
+    outboundFlights = FlightUtils.filterFlights(outboundFlights, minFare, maxFare, airlineNameFilter, minDepTime, maxDepTime, minArrTime, maxArrTime);
+    returnFlights = FlightUtils.filterFlights(returnFlights, minFare, maxFare, airlineNameFilter, minDepTime, maxDepTime, minArrTime, maxArrTime);
 
     FlightUtils.sortFlights(outboundFlights, sortBy);
     FlightUtils.sortFlights(returnFlights, sortBy);

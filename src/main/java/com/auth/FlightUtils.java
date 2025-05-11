@@ -7,13 +7,14 @@ import java.math.BigDecimal;
 import java.sql.Time;
 
 public class FlightUtils {
-    public static List<Flight> filterFlights(List<Flight> flights, BigDecimal minFare, BigDecimal maxFare, String airlineFilter,
+    public static List<Flight> filterFlights(List<Flight> flights, BigDecimal minFare, BigDecimal maxFare, String airlineNameFilter,
                                              Time minDepTime, Time maxDepTime, Time minArrTime, Time maxArrTime) {
         List<Flight> result = new ArrayList<>();
         for (Flight f : flights) {
             if (minFare != null && f.getFare().compareTo(minFare) < 0) continue;
             if (maxFare != null && f.getFare().compareTo(maxFare) > 0) continue;
-            if (airlineFilter != null && !airlineFilter.isEmpty() && !f.getAirlineId().equalsIgnoreCase(airlineFilter)) continue;
+            if (airlineNameFilter != null && !airlineNameFilter.isEmpty() && 
+                (f.getAirlineName() == null || !f.getAirlineName().toLowerCase().contains(airlineNameFilter.toLowerCase()))) continue;
             if (minDepTime != null && f.getDepTime().before(minDepTime)) continue;
             if (maxDepTime != null && f.getDepTime().after(maxDepTime)) continue;
             if (minArrTime != null && f.getArrTime().before(minArrTime)) continue;

@@ -102,44 +102,6 @@
             <div class="form-group">
                 <label><input type="checkbox" name="flexible"> Flexible Dates (+/- 3 days)</label>
             </div>
-            <div class="form-group">
-                <label for="sortBy">Sort by:</label>
-                <select id="sortBy" name="sortBy">
-                    <option value="">None</option>
-                    <option value="fare">Fare</option>
-                    <option value="dep_time">Departure Time</option>
-                    <option value="arr_time">Arrival Time</option>
-                    <option value="duration">Duration</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="minFare">Min Fare:</label>
-                <input type="number" id="minFare" name="minFare" step="0.01">
-            </div>
-            <div class="form-group">
-                <label for="maxFare">Max Fare:</label>
-                <input type="number" id="maxFare" name="maxFare" step="0.01">
-            </div>
-            <div class="form-group">
-                <label for="airlineFilter">Airline ID:</label>
-                <input type="text" id="airlineFilter" name="airlineFilter">
-            </div>
-            <div class="form-group">
-                <label for="minDepTime">Earliest Departure:</label>
-                <input type="time" id="minDepTime" name="minDepTime">
-            </div>
-            <div class="form-group">
-                <label for="maxDepTime">Latest Departure:</label>
-                <input type="time" id="maxDepTime" name="maxDepTime">
-            </div>
-            <div class="form-group">
-                <label for="minArrTime">Earliest Arrival:</label>
-                <input type="time" id="minArrTime" name="minArrTime">
-            </div>
-            <div class="form-group">
-                <label for="maxArrTime">Latest Arrival:</label>
-                <input type="time" id="maxArrTime" name="maxArrTime">
-            </div>
             <button type="submit">Search Flights</button>
         </form>
     </div>

@@ -36,4 +36,66 @@ public class UserDAO {
         
         return user;
     }
+    
+    /**
+     * Get the role of a user
+     * @param userId the user's ID
+     * @return "admin", "customer_rep", or "customer" as a string, or null if not found
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public String getUserRole(String userId) throws ClassNotFoundException, SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        String role = null;
+        
+        try {
+            connection = DatabaseConnection.getConnection();
+            
+            // Check if admin
+            String sql = "SELECT 1 FROM Admin WHERE user_id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                return "admin";
+            }
+            
+            // Close the previous result set and statement
+            resultSet.close();
+            statement.close();
+            
+            // Check if customer rep
+            sql = "SELECT 1 FROM Customer_Rep WHERE user_id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                return "customer_rep";
+            }
+            
+            // Close the previous result set and statement
+            resultSet.close();
+            statement.close();
+            
+            // Check if customer
+            sql = "SELECT 1 FROM Customer WHERE user_id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                return "customer";
+            }
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
+        
+        return role;
+    }
 }

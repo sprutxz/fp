@@ -58,11 +58,59 @@
         .button:hover {
             background-color: #45a049;
         }
+        .book-button {
+            padding: 5px 10px;
+            background-color: #4285F4;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .book-button:hover {
+            background-color: #3367D6;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Flight Search Results</h2>
+        <div class="filter-sort-container">
+            <form action="flightSearchProcess.jsp" method="post">
+                <input type="hidden" name="depAirport" value="<%= request.getParameter("depAirport") %>" />
+                <input type="hidden" name="arrAirport" value="<%= request.getParameter("arrAirport") %>" />
+                <input type="hidden" name="depDate" value="<%= request.getParameter("depDate") %>" />
+                <input type="hidden" name="tripType" value="<%= request.getParameter("tripType") %>" />
+                <% if ("roundtrip".equals(request.getParameter("tripType"))) { %>
+                    <input type="hidden" name="returnDate" value="<%= request.getParameter("returnDate") %>" />
+                <% } %>
+                <% if (request.getParameter("flexible") != null) { %>
+                    <input type="hidden" name="flexible" value="on" />
+                <% } %>
+                <label for="sortBy">Sort by:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="" <%= "".equals(request.getParameter("sortBy")) ? "selected" : "" %>>None</option>
+                    <option value="fare" <%= "fare".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Fare</option>
+                    <option value="dep_time" <%= "dep_time".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Departure Time</option>
+                    <option value="arr_time" <%= "arr_time".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Arrival Time</option>
+                    <option value="duration" <%= "duration".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Duration</option>
+                </select>
+                <label for="minFare">Min Fare:</label>
+                <input type="number" name="minFare" id="minFare" step="0.01" value="<%= request.getParameter("minFare") != null ? request.getParameter("minFare") : "" %>" />
+                <label for="maxFare">Max Fare:</label>
+                <input type="number" name="maxFare" id="maxFare" step="0.01" value="<%= request.getParameter("maxFare") != null ? request.getParameter("maxFare") : "" %>" />
+                <label for="airlineNameFilter">Airline Name:</label>
+                <input type="text" name="airlineNameFilter" id="airlineNameFilter" value="<%= request.getParameter("airlineNameFilter") != null ? request.getParameter("airlineNameFilter") : "" %>" />
+                <label for="minDepTime">Earliest Dep:</label>
+                <input type="time" name="minDepTime" id="minDepTime" value="<%= request.getParameter("minDepTime") != null ? request.getParameter("minDepTime") : "" %>" />
+                <label for="maxDepTime">Latest Dep:</label>
+                <input type="time" name="maxDepTime" id="maxDepTime" value="<%= request.getParameter("maxDepTime") != null ? request.getParameter("maxDepTime") : "" %>" />
+                <label for="minArrTime">Earliest Arr:</label>
+                <input type="time" name="minArrTime" id="minArrTime" value="<%= request.getParameter("minArrTime") != null ? request.getParameter("minArrTime") : "" %>" />
+                <label for="maxArrTime">Latest Arr:</label>
+                <input type="time" name="maxArrTime" id="maxArrTime" value="<%= request.getParameter("maxArrTime") != null ? request.getParameter("maxArrTime") : "" %>" />
+                <button type="submit">Apply Filters/Sort</button>
+            </form>
+        </div>
         <% if (error != null) { %>
             <div class="error-message"><%= error %></div>
         <% } else { %>
@@ -75,6 +123,7 @@
                     <th>Times</th>
                     <th>Airline</th>
                     <th>Fare</th>
+                    <th>Action</th>
                 </tr>
                 <% for (Flight f : outboundFlights) { %>
                     <tr>
@@ -82,8 +131,11 @@
                         <td><%= f.getFlightNumber() %></td>
                         <td><%= f.getDepAirportId() %> to <%= f.getArrAirportId() %></td>
                         <td><%= f.getDepTime() %> - <%= f.getArrTime() %></td>
-                        <td><%= f.getAirlineId() %></td>
+                        <td><%= f.getAirlineName() %></td>
                         <td><%= f.getFare() %></td>
+                        <td>
+                            <a href="bookFlight.jsp?flightNumber=<%= f.getFlightNumber() %>&travelDate=<%= f.getTravelDate() %>&airlineId=<%= f.getAirlineId() %>&aircraftId=<%= f.getAircraftId() %>&fare=<%= f.getFare() %>" class="book-button">Book</a>
+                        </td>
                     </tr>
                 <% } %>
             </table>
@@ -97,6 +149,7 @@
                         <th>Times</th>
                         <th>Airline</th>
                         <th>Fare</th>
+                        <th>Action</th>
                     </tr>
                     <% for (Flight f : returnFlights) { %>
                         <tr>
@@ -104,8 +157,11 @@
                             <td><%= f.getFlightNumber() %></td>
                             <td><%= f.getDepAirportId() %> to <%= f.getArrAirportId() %></td>
                             <td><%= f.getDepTime() %> - <%= f.getArrTime() %></td>
-                            <td><%= f.getAirlineId() %></td>
+                            <td><%= f.getAirlineName() %></td>
                             <td><%= f.getFare() %></td>
+                            <td>
+                                <a href="bookFlight.jsp?flightNumber=<%= f.getFlightNumber() %>&travelDate=<%= f.getTravelDate() %>&airlineId=<%= f.getAirlineId() %>&aircraftId=<%= f.getAircraftId() %>&fare=<%= f.getFare() %>" class="book-button">Book</a>
+                            </td>
                         </tr>
                     <% } %>
                 </table>

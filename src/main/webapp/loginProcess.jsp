@@ -20,6 +20,11 @@
             session.setAttribute("userId", userId);
             session.setAttribute("firstName", user.getFirstName());
             session.setAttribute("lastName", user.getLastName());
+            
+            // Get and store the user's role
+            String userRole = userDAO.getUserRole(userId);
+            session.setAttribute("userRole", userRole);
+            
             session.setMaxInactiveInterval(30*60); // 30 minutes
             message = "Login successful!";
         } else {
@@ -51,15 +56,17 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            max-width: 400px;
+            width: 100%;
             text-align: center;
         }
         h2 {
+            margin-bottom: 20px;
             color: #333;
         }
         .message {
-            margin: 20px 0;
             padding: 10px;
+            margin-bottom: 20px;
             border-radius: 4px;
         }
         .success {
@@ -72,20 +79,20 @@
         }
         .button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 8px 16px;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
             border-radius: 4px;
-            margin: 10px;
+            margin: 10px 5px;
         }
         .button:hover {
             background-color: #45a049;
         }
-        .button.logout {
+        .logout {
             background-color: #f44336;
         }
-        .button.logout:hover {
+        .logout:hover {
             background-color: #d32f2f;
         }
     </style>
@@ -98,7 +105,18 @@
         </div>
         <% if (isValidUser) { %>
             <p>Welcome, <%= user.getFirstName() %> <%= user.getLastName() %>!</p>
-            <a href="dashboard.jsp" class="button">Go to Dashboard</a>
+            <%-- Redirect to appropriate dashboard based on user role --%>
+            <% 
+                String userRole = (String) session.getAttribute("userRole");
+                String dashboardPage = "dashboard.jsp";
+                
+                if ("admin".equals(userRole)) {
+                    dashboardPage = "adminDashboard.jsp";
+                } else if ("customer_rep".equals(userRole)) {
+                    dashboardPage = "repDashboard.jsp";
+                }
+            %>
+            <a href="<%= dashboardPage %>" class="button">Go to Dashboard</a>
             <a href="logout.jsp" class="button logout">Logout</a>
         <% } else { %>
             <a href="login.jsp" class="button">Try Again</a>

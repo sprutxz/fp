@@ -27,14 +27,14 @@ public class FlightDAO {
         List<Flight> list = new ArrayList<>();
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "SELECT f.flight_number, f.flight_type, f.dep_time, f.arr_time, f.dep_airport_id, f.arr_airport_id, f.aircraft_id, f.airline_id, MIN(t.fare) AS fare "
-                       + "FROM Flight f LEFT JOIN Ticket t ON t.date = ? AND t.aircraft_id = f.aircraft_id "
-                       + "WHERE f.dep_airport_id = ? AND f.arr_airport_id = ? "
-                       + "GROUP BY f.flight_number, f.flight_type, f.dep_time, f.arr_time, f.dep_airport_id, f.arr_airport_id, f.aircraft_id, f.airline_id";
+            String sql = "SELECT f.flight_number, f.flight_type, f.dep_time, f.arr_time, f.dep_airport_id, f.arr_airport_id, "
+                       + "f.aircraft_id, f.airline_id, f.price as fare, a.airline_name "
+                       + "FROM Flight f "
+                       + "JOIN Airline a ON f.airline_id = a.airline_id "
+                       + "WHERE f.dep_airport_id = ? AND f.arr_airport_id = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, searchDate);
-            stmt.setString(2, depAirport);
-            stmt.setString(3, arrAirport);
+            stmt.setString(1, depAirport);
+            stmt.setString(2, arrAirport);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Flight f = new Flight();
@@ -46,8 +46,9 @@ public class FlightDAO {
                 f.setArrAirportId(rs.getString("arr_airport_id"));
                 f.setAircraftId(rs.getString("aircraft_id"));
                 f.setAirlineId(rs.getString("airline_id"));
-                BigDecimal fare = rs.getBigDecimal("fare");
-                f.setFare(fare != null ? fare : BigDecimal.ZERO);
+                f.setAirlineName(rs.getString("airline_name"));
+                f.setFare(rs.getBigDecimal("fare"));
+                f.setTravelDate(searchDate);
                 list.add(f);
             }
         } finally {

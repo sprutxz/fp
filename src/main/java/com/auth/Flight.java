@@ -13,6 +13,7 @@ public class Flight {
     private String arrAirportId;
     private String aircraftId;
     private String airlineId;
+    private String airlineName;
     private Date travelDate; // Date of flight for search results
     private BigDecimal fare; // ticket price
 
@@ -80,6 +81,14 @@ public class Flight {
 
     public void setAirlineId(String airlineId) {
         this.airlineId = airlineId;
+    }
+
+    public String getAirlineName() {
+        return airlineName;
+    }
+
+    public void setAirlineName(String airlineName) {
+        this.airlineName = airlineName;
     }
 
     public Date getTravelDate() {
