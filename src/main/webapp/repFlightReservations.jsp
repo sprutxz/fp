@@ -168,7 +168,7 @@
                             <td><%= f.get("arrTime") %></td>
                             <td><%= f.get("fare") %></td>
                             <td>
-                                <a href="repBookFlight.jsp?targetUser=<%= targetUser %>&flightNumber=<%= f.get("flightNumber") %>&aircraftId=<%= f.get("aircraftId") %>" class="button">Book</a>
+                                <a href="repBookFlight.jsp?targetUser=<%= targetUser %>&flightNumber=<%= f.get("flightNumber") %>&aircraftId=<%= f.get("aircraftId") %>&travelDate=<%= f.get("travelDate") %>&airlineId=<%= f.get("airlineId") %>&fare=<%= f.get("fare") %>" class="button">Book</a>
                             </td>
                         </tr>
                     <% } %>

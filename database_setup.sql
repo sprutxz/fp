@@ -252,6 +252,18 @@ INSERT INTO Flight VALUES ('AA101', 'International', '23:00:00', '05:30:00', 'JF
 INSERT INTO Flight VALUES ('DL201', 'Domestic', '06:30:00', '09:45:00', 'ATL', 'JFK', 'B777-DL2', 'DL', 1500.00);
 INSERT INTO Flight VALUES ('UA301', 'Domestic', '11:15:00', '14:45:00', 'SFO', 'ORD', 'B737-UA2', 'UA', 380.00);
 
+-- Add round-trip return flights
+INSERT INTO Flight VALUES ('AA102', 'Domestic', '13:30:00', '17:00:00', 'LAX', 'JFK', 'B737-AA1', 'AA', 380.00);
+INSERT INTO Flight VALUES ('DL202', 'Domestic', '14:30:00', '18:00:00', 'SFO', 'ATL', 'B787-DL1', 'DL', 780.00);
+INSERT INTO Flight VALUES ('UA302', 'Domestic', '15:00:00', '17:30:00', 'MIA', 'ORD', 'A320-UA1', 'UA', 1250.00);
+INSERT INTO Flight VALUES ('B6402', 'Domestic', '19:00:00', '22:30:00', 'LAS', 'BOS', 'A321-B61', 'B6', 420.00);
+INSERT INTO Flight VALUES ('WN502', 'Domestic', '20:30:00', '23:00:00', 'SEA', 'DFW', 'B737-WN1', 'WN', 870.00);
+
+-- Add popular flights that will be fully booked (for waitlist testing)
+INSERT INTO Flight VALUES ('AA200', 'Domestic', '07:30:00', '10:00:00', 'JFK', 'MIA', 'A320-AA2', 'AA', 275.00);
+INSERT INTO Flight VALUES ('DL300', 'Domestic', '08:45:00', '11:15:00', 'ATL', 'LAX', 'B777-DL2', 'DL', 425.00);
+INSERT INTO Flight VALUES ('UA400', 'Domestic', '06:15:00', '09:30:00', 'ORD', 'LAS', 'B737-UA2', 'UA', 350.00);
+
 -- Insert Days
 INSERT INTO Days VALUES (1, 'Monday');
 INSERT INTO Days VALUES (2, 'Tuesday');
@@ -278,6 +290,23 @@ INSERT INTO Flies_on VALUES ('WN500', 'WN', 5);
 INSERT INTO Flies_on VALUES ('WN500', 'WN', 6);
 INSERT INTO Flies_on VALUES ('WN500', 'WN', 7);
 
+-- Round-trip return flights operate on same days as outbound flights
+INSERT INTO Flies_on VALUES ('AA102', 'AA', 1);
+INSERT INTO Flies_on VALUES ('AA102', 'AA', 3);
+INSERT INTO Flies_on VALUES ('AA102', 'AA', 5);
+INSERT INTO Flies_on VALUES ('DL202', 'DL', 2);
+INSERT INTO Flies_on VALUES ('DL202', 'DL', 4);
+INSERT INTO Flies_on VALUES ('DL202', 'DL', 6);
+INSERT INTO Flies_on VALUES ('UA302', 'UA', 1);
+INSERT INTO Flies_on VALUES ('UA302', 'UA', 4);
+INSERT INTO Flies_on VALUES ('UA302', 'UA', 7);
+INSERT INTO Flies_on VALUES ('B6402', 'B6', 1);
+INSERT INTO Flies_on VALUES ('B6402', 'B6', 2);
+INSERT INTO Flies_on VALUES ('B6402', 'B6', 3);
+INSERT INTO Flies_on VALUES ('WN502', 'WN', 5);
+INSERT INTO Flies_on VALUES ('WN502', 'WN', 6);
+INSERT INTO Flies_on VALUES ('WN502', 'WN', 7);
+
 -- Daily flights
 INSERT INTO Flies_on VALUES ('AA101', 'AA', 1);
 INSERT INTO Flies_on VALUES ('AA101', 'AA', 2);
@@ -286,6 +315,31 @@ INSERT INTO Flies_on VALUES ('AA101', 'AA', 4);
 INSERT INTO Flies_on VALUES ('AA101', 'AA', 5);
 INSERT INTO Flies_on VALUES ('AA101', 'AA', 6);
 INSERT INTO Flies_on VALUES ('AA101', 'AA', 7);
+
+-- Popular flights that will be fully booked (daily operation)
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 1);
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 2);
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 3);
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 4);
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 5);
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 6);
+INSERT INTO Flies_on VALUES ('AA200', 'AA', 7);
+
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 1);
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 2);
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 3);
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 4);
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 5);
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 6);
+INSERT INTO Flies_on VALUES ('DL300', 'DL', 7);
+
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 1);
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 2);
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 3);
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 4);
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 5);
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 6);
+INSERT INTO Flies_on VALUES ('UA400', 'UA', 7);
 
 -- Insert Tickets
 INSERT INTO Ticket VALUES ('T0001', 'user01', 'Economy', '2025-05-15', 'D1', 'B737-AA1', 'AA100', 350.00);
@@ -297,6 +351,21 @@ INSERT INTO Ticket VALUES ('T0006', 'user05', 'Economy', '2025-07-05', 'B1', 'A3
 INSERT INTO Ticket VALUES ('T0007', 'user01', 'First', '2025-08-10', 'A1', 'B777-DL2', 'DL201', 1500.00);
 INSERT INTO Ticket VALUES ('T0008', 'john01', 'Economy', '2025-08-15', 'B1', 'B737-UA2', 'UA301', 380.00);
 
+-- Round-trip return tickets
+INSERT INTO Ticket VALUES ('T0009', 'user01', 'Economy', '2025-05-17', 'D1', 'B737-AA1', 'AA102', 380.00);
+INSERT INTO Ticket VALUES ('T0010', 'john01', 'Business', '2025-05-22', 'C1', 'B787-DL1', 'DL202', 780.00);
+INSERT INTO Ticket VALUES ('T0011', 'user02', 'First', '2025-06-12', 'A1', 'A320-UA1', 'UA302', 1250.00);
+INSERT INTO Ticket VALUES ('T0012', 'user03', 'Economy', '2025-06-17', 'D1', 'A321-B61', 'B6402', 420.00);
+INSERT INTO Ticket VALUES ('T0013', 'user04', 'Business', '2025-07-03', 'A1', 'B737-WN1', 'WN502', 870.00);
+
+-- Popular flights tickets (fully booked flights for waitlist testing)
+INSERT INTO Ticket VALUES ('T0014', 'user01', 'First', '2025-05-25', 'A1', 'A320-AA2', 'AA200', 275.00);
+INSERT INTO Ticket VALUES ('T0015', 'john01', 'First', '2025-05-25', 'B1', 'A320-AA2', 'AA200', 275.00);
+INSERT INTO Ticket VALUES ('T0016', 'user02', 'Economy', '2025-06-05', 'A1', 'B777-DL2', 'DL300', 425.00);
+INSERT INTO Ticket VALUES ('T0017', 'user03', 'Economy', '2025-06-05', 'B1', 'B777-DL2', 'DL300', 425.00);
+INSERT INTO Ticket VALUES ('T0018', 'user04', 'Business', '2025-07-10', 'A1', 'B737-UA2', 'UA400', 350.00);
+INSERT INTO Ticket VALUES ('T0019', 'user05', 'Business', '2025-07-10', 'B1', 'B737-UA2', 'UA400', 350.00);
+
 -- Insert Travel Records
 INSERT INTO Travel VALUES ('user01', 'AA100', 'AA', '2025-05-15', 25.00, 'D1', 'B737-AA1');
 INSERT INTO Travel VALUES ('john01', 'DL200', 'DL', '2025-05-20', 30.00, 'C1', 'B787-DL1');
@@ -306,6 +375,21 @@ INSERT INTO Travel VALUES ('user04', 'WN500', 'WN', '2025-07-01', 30.00, 'A1', '
 INSERT INTO Travel VALUES ('user05', 'AA101', 'AA', '2025-07-05', 25.00, 'B1', 'A320-AA2');
 INSERT INTO Travel VALUES ('user01', 'DL201', 'DL', '2025-08-10', 35.00, 'A1', 'B777-DL2');
 INSERT INTO Travel VALUES ('john01', 'UA301', 'UA', '2025-08-15', 25.00, 'B1', 'B737-UA2');
+
+-- Round-trip return travel records
+INSERT INTO Travel VALUES ('user01', 'AA102', 'AA', '2025-05-17', 25.00, 'D1', 'B737-AA1');
+INSERT INTO Travel VALUES ('john01', 'DL202', 'DL', '2025-05-22', 30.00, 'C1', 'B787-DL1');
+INSERT INTO Travel VALUES ('user02', 'UA302', 'UA', '2025-06-12', 35.00, 'A1', 'A320-UA1');
+INSERT INTO Travel VALUES ('user03', 'B6402', 'B6', '2025-06-17', 25.00, 'D1', 'A321-B61');
+INSERT INTO Travel VALUES ('user04', 'WN502', 'WN', '2025-07-03', 30.00, 'A1', 'B737-WN1');
+
+-- Popular flights travel records
+INSERT INTO Travel VALUES ('user01', 'AA200', 'AA', '2025-05-25', 20.00, 'A1', 'A320-AA2');
+INSERT INTO Travel VALUES ('john01', 'AA200', 'AA', '2025-05-25', 20.00, 'B1', 'A320-AA2');
+INSERT INTO Travel VALUES ('user02', 'DL300', 'DL', '2025-06-05', 25.00, 'A1', 'B777-DL2');
+INSERT INTO Travel VALUES ('user03', 'DL300', 'DL', '2025-06-05', 25.00, 'B1', 'B777-DL2');
+INSERT INTO Travel VALUES ('user04', 'UA400', 'UA', '2025-07-10', 22.50, 'A1', 'B737-UA2');
+INSERT INTO Travel VALUES ('user05', 'UA400', 'UA', '2025-07-10', 22.50, 'B1', 'B737-UA2');
 
 -- Insert Sample QnA
 INSERT INTO QnA (customer_id, question_text, question_date)
@@ -322,3 +406,20 @@ VALUES ('user03', 'rep01', 'How early should I arrive at the airport for flight 
 
 INSERT INTO QnA (customer_id, question_text, question_date)
 VALUES ('user04', 'Is there Wi-Fi available on flight WN500?', '2025-06-25 10:10:00');
+
+-- Additional Q&A for more diverse sample data
+INSERT INTO QnA (customer_id, question_text, question_date)
+VALUES ('user05', 'How much does it cost to check an extra bag on flight AA101?', '2025-06-28 11:45:00');
+
+INSERT INTO QnA (customer_id, rep_id, question_text, answer_text, question_date, answer_date)
+VALUES ('user02', 'rep01', 'What meals are served on flight UA300?', 'On this flight, we offer a choice of chicken, beef or vegetarian meals in First and Business class. Economy class passengers can purchase meals onboard.', '2025-06-30 15:20:00', '2025-06-30 16:05:00');
+
+INSERT INTO QnA (customer_id, question_text, question_date)
+VALUES ('john01', 'Can I change my flight from DL200 to DL202?', '2025-07-02 09:30:00');
+
+-- Insert Waiting List records for testing
+INSERT INTO Waiting_List VALUES ('user05', 'AA200', 'AA', '2025-05-15 14:30:00', 'waiting', NULL);
+INSERT INTO Waiting_List VALUES ('user03', 'DL300', 'DL', '2025-05-16 10:15:00', 'waiting', NULL);
+INSERT INTO Waiting_List VALUES ('john01', 'UA400', 'UA', '2025-05-18 16:45:00', 'waiting', NULL);
+INSERT INTO Waiting_List VALUES ('user01', 'AA200', 'AA', '2025-05-19 09:30:00', 'notified', '2025-05-20 13:45:00');
+INSERT INTO Waiting_List VALUES ('user02', 'DL300', 'DL', '2025-05-20 11:20:00', 'notified', '2025-05-21 14:30:00');

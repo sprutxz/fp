@@ -69,6 +69,21 @@
         .book-button:hover {
             background-color: #3367D6;
         }
+        .filter-sort-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .filter-sort-container form .form-group {
+            margin-bottom: 10px;
+        }
+        .filter-sort-container form .filter-row {
+            display: flex;
+            gap: 20px;
+        }
+        .filter-sort-container form .filter-row .form-group {
+            margin-bottom: 0;
+            flex: 1;
+        }
     </style>
 </head>
 <body>
@@ -86,29 +101,53 @@
                 <% if (request.getParameter("flexible") != null) { %>
                     <input type="hidden" name="flexible" value="on" />
                 <% } %>
-                <label for="sortBy">Sort by:</label>
-                <select name="sortBy" id="sortBy">
-                    <option value="" <%= "".equals(request.getParameter("sortBy")) ? "selected" : "" %>>None</option>
-                    <option value="fare" <%= "fare".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Fare</option>
-                    <option value="dep_time" <%= "dep_time".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Departure Time</option>
-                    <option value="arr_time" <%= "arr_time".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Arrival Time</option>
-                    <option value="duration" <%= "duration".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Duration</option>
-                </select>
-                <label for="minFare">Min Fare:</label>
-                <input type="number" name="minFare" id="minFare" step="0.01" value="<%= request.getParameter("minFare") != null ? request.getParameter("minFare") : "" %>" />
-                <label for="maxFare">Max Fare:</label>
-                <input type="number" name="maxFare" id="maxFare" step="0.01" value="<%= request.getParameter("maxFare") != null ? request.getParameter("maxFare") : "" %>" />
-                <label for="airlineNameFilter">Airline Name:</label>
-                <input type="text" name="airlineNameFilter" id="airlineNameFilter" value="<%= request.getParameter("airlineNameFilter") != null ? request.getParameter("airlineNameFilter") : "" %>" />
-                <label for="minDepTime">Earliest Dep:</label>
-                <input type="time" name="minDepTime" id="minDepTime" value="<%= request.getParameter("minDepTime") != null ? request.getParameter("minDepTime") : "" %>" />
-                <label for="maxDepTime">Latest Dep:</label>
-                <input type="time" name="maxDepTime" id="maxDepTime" value="<%= request.getParameter("maxDepTime") != null ? request.getParameter("maxDepTime") : "" %>" />
-                <label for="minArrTime">Earliest Arr:</label>
-                <input type="time" name="minArrTime" id="minArrTime" value="<%= request.getParameter("minArrTime") != null ? request.getParameter("minArrTime") : "" %>" />
-                <label for="maxArrTime">Latest Arr:</label>
-                <input type="time" name="maxArrTime" id="maxArrTime" value="<%= request.getParameter("maxArrTime") != null ? request.getParameter("maxArrTime") : "" %>" />
-                <button type="submit">Apply Filters/Sort</button>
+                <div class="form-group">
+                    <label for="sortBy">Sort by:</label>
+                    <select name="sortBy" id="sortBy">
+                        <option value="" <%= "".equals(request.getParameter("sortBy")) ? "selected" : "" %>>None</option>
+                        <option value="fare" <%= "fare".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Fare</option>
+                        <option value="dep_time" <%= "dep_time".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Departure Time</option>
+                        <option value="arr_time" <%= "arr_time".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Arrival Time</option>
+                        <option value="duration" <%= "duration".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Duration</option>
+                    </select>
+                </div>
+                <div class="filter-row">
+                    <div class="form-group">
+                        <label for="minFare">Min Fare:</label>
+                        <input type="number" name="minFare" id="minFare" step="0.01" value="<%= request.getParameter("minFare") != null ? request.getParameter("minFare") : "" %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maxFare">Max Fare:</label>
+                        <input type="number" name="maxFare" id="maxFare" step="0.01" value="<%= request.getParameter("maxFare") != null ? request.getParameter("maxFare") : "" %>" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="airlineNameFilter">Airline Name:</label>
+                    <input type="text" name="airlineNameFilter" id="airlineNameFilter" value="<%= request.getParameter("airlineNameFilter") != null ? request.getParameter("airlineNameFilter") : "" %>" />
+                </div>
+                <div class="filter-row">
+                    <div class="form-group">
+                        <label for="minDepTime">Earliest Dep:</label>
+                        <input type="time" name="minDepTime" id="minDepTime" value="<%= request.getParameter("minDepTime") != null ? request.getParameter("minDepTime") : "" %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maxDepTime">Latest Dep:</label>
+                        <input type="time" name="maxDepTime" id="maxDepTime" value="<%= request.getParameter("maxDepTime") != null ? request.getParameter("maxDepTime") : "" %>" />
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <div class="form-group">
+                        <label for="minArrTime">Earliest Arr:</label>
+                        <input type="time" name="minArrTime" id="minArrTime" value="<%= request.getParameter("minArrTime") != null ? request.getParameter("minArrTime") : "" %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maxArrTime">Latest Arr:</label>
+                        <input type="time" name="maxArrTime" id="maxArrTime" value="<%= request.getParameter("maxArrTime") != null ? request.getParameter("maxArrTime") : "" %>" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Apply Filters/Sort</button>
+                </div>
             </form>
         </div>
         <% if (error != null) { %>
